@@ -179,6 +179,8 @@ public:
         vSeeds.emplace_back("tokyo1.subi.io");
         vSeeds.emplace_back("uk1.subi.io");
 
+		convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
+
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,75);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,63);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
