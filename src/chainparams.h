@@ -29,6 +29,11 @@ struct ChainTxData {
     double dTxRate;
 };
 
+struct CDNSSeedData {
+    std::string name, host;
+    CDNSSeedData(const std::string& strName, const std::string& strHost) : name(strName), host(strHost) {}
+}
+
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
  * Bitcoin system. There are three: the main network on which people trade goods
@@ -71,21 +76,41 @@ public:
 
     int BIP44ID() const { return nBIP44ID; }
     const CBlock& GenesisBlock() const { return genesis; }
+
+
     /** Default value for -checkmempool and -checkblockindex argument */
     bool DefaultConsistencyChecks() const { return fDefaultConsistencyChecks; }
+
+
     /** Policy: Filter transactions that do not match well-defined patterns */
     bool RequireStandard() const { return fRequireStandard; }
     uint64_t PruneAfterHeight() const { return nPruneAfterHeight; }
+
+
     /** Make miner stop after a block is found. In RPC, don't return until nGenProcLimit blocks are generated */
     bool MineBlocksOnDemand() const { return fMineBlocksOnDemand; }
+
+
     /** Return the BIP70 network string (main, test or regtest) */
     std::string NetworkIDString() const { return strNetworkID; }
+
+
     /** Return the list of hostnames to look up for DNS seeds */
-    const std::vector<std::string>& DNSSeeds() const { return vSeeds; }
+
     const std::vector<unsigned char>& Base58Prefix(Base58Type type) const { return base58Prefixes[type]; }
     const std::vector<unsigned char>& Bech32Prefix(Base58Type type) const { return bech32Prefixes[type]; }
     const std::string& Bech32HRP() const { return bech32_hrp; }
-    const std::vector<SeedSpec6>& FixedSeeds() const { return vFixedSeeds; }
+
+	// Subi Seed code
+	//const std::vector<std::string>& DNSSeeds() const { return vSeeds; }
+    //const std::vector<SeedSpec6>& FixedSeeds() const { return vFixedSeeds; }
+
+	//CCBC seed code
+	const std::vector<CDNSSeedData>& DNSSeeds() const { return vSeeds; }
+    const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
+
+
+
     const CCheckpointData& Checkpoints() const { return checkpointData; }
     const ChainTxData& TxData() const { return chainTxData; }
     void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout);
@@ -109,13 +134,17 @@ protected:
     int nDefaultPort;
     int nBIP44ID;
     uint64_t nPruneAfterHeight;
-    std::vector<std::string> vSeeds;
+
+    //std::vector<std::string> vSeeds;
+    std::vector<CDNSSeedData> vSeeds;
+    //std::vector<SeedSpec6> vFixedSeeds;
+    std::vector<SeedSpec6> vFixedSeeds;
+
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     std::vector<unsigned char> bech32Prefixes[MAX_BASE58_TYPES];
     std::string bech32_hrp;
     std::string strNetworkID;
     CBlock genesis;
-    std::vector<SeedSpec6> vFixedSeeds;
     bool fDefaultConsistencyChecks;
     bool fRequireStandard;
     bool fMineBlocksOnDemand;
