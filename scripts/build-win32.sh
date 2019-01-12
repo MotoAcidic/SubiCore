@@ -4,4 +4,4 @@ cd ..
 make
 cd src
 cd qt
-strip ccbc-qt.exe
+strip subi-qt.exe
