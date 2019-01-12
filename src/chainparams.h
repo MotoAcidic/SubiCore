@@ -17,11 +17,6 @@
 static const uint32_t CHAIN_NO_GENESIS = 444444;
 static const uint32_t CHAIN_NO_STEALTH_SPEND = 444445; // used hardened
 
-struct SeedSpec6 {
-    uint8_t addr[16];
-    uint16_t port;
-};
-
 typedef std::map<int, uint256> MapCheckpoints;
 
 struct CCheckpointData {
